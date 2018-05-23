@@ -7,7 +7,7 @@ Each team will receive an api-key to be able to request the API. If you don't ha
 
 There is a limit rate to the api: 1000 requests / hours. If you need more, please reach out to us so that we can satisfy your need :)
 
-We've open an api endpoint to let you search our listing of ads. It's a simple POST request that accept parameters in the body.
+We've open an api endpoint to let you search our listing of ads. It's a simple POST request that accept parameters in the body an returns an array of results.
 
 * **Base URL**: `http://35.233.99.28`
 
@@ -54,8 +54,12 @@ The `filters` key is the main place where you refine your request. It's an objec
   Ex:
 
   ```json
-  "category": {
-    "id": "39"
+  {
+    "filters": {
+      "category": {
+        "id": "39"
+      }
+    }
   }
   ```
 
@@ -69,47 +73,73 @@ The `filters` key is the main place where you refine your request. It's an objec
   Here's how it looks like:
 
   ```json
-  "keywords": {
-    "text": "your awesome keywords"
-    },
+  {
+    "filters": {
+      "keywords": {
+        "text": "software engineer job leboncoin"
+        },
+    }
+  }
   ```
 
   By default, it will search both in the title of an ad and its description. You can decide to search only in the title of the ad by adding a key `type` of value `subject` as follows:
 
   ```json
-  "keywords": {
-    "type": "subject",
-    "text": "le rouge"
+  {
+    "filters": {
+      "keywords": {
+        "type": "subject",
+        "text": "air jordan"
+      }
+    }
   }
   ```
 
-* **price**
+* **range**
 
-  You can also filter your search by specifying a price range, a min and/or a max. It's as simple as:
+  You can also filter your search by specifying a price range, a min and/or a max. Units are in euros. It's as simple as:
 
   With a price range:
 
   ```json
-    "price": {
-      "min": "15",
-      "max": "50"
+  {
+    "filters": {
+      "range": {
+        "price": {
+          "min": 15,
+          "max": 50
+        }
+      }
     }
+  }
   ```
 
   With a price minimum only:
 
   ```json
-    "price": {
-      "min": "15"
+  {
+    "filters": {
+      "range": {
+        "price": {
+          "min": 15
+          }
+      }
     }
+  }
   ```
 
   With a price maximum only:
 
   ```json
-    "price": {
-      "max": "50"
+  {
+    "filters": {
+      "range": {
+        "price": {
+          "max": 2000
+          }
+      }
     }
+  }
   ```
 
 
@@ -120,11 +150,15 @@ The `filters` key is the main place where you refine your request. It's an objec
   With coordinates:
 
     ```json
-    "location": {
-      "area": {
-        "lat": "48.8729527",
-        "lng": "2.3573570999999998",
-        "radius": "30000"
+    {
+      "filters": {
+        "location": {
+          "area": {
+            "lat": 48.8729527,
+            "lng": 2.3573570999999998,
+            "radius": 30000
+          }
+        }
       }
     }
     ```
@@ -132,9 +166,13 @@ The `filters` key is the main place where you refine your request. It's an objec
   With region or department:
 
     ```json
-    "location": {
-      "region": "12",
-      "department": "75"
+    {
+      "filters": {
+        "location": {
+          "region": "12",
+          "department": "75"
+        }
+      }
     }
     ```
 
@@ -155,8 +193,12 @@ The `filters` key is the main place where you refine your request. It's an objec
   To actually do it, you'll need to add an `enums` key with urgent key nested inside, as follows:
 
   ```json
-  "enums": {
-    "urgent": ["1"]
+  {
+    "filters": {
+      "enums": {
+        "urgent": ["1"]
+      }
+    }
   }
   ```
 
@@ -164,17 +206,29 @@ The `filters` key is the main place where you refine your request. It's an objec
 ### **limit**
 
 You can precise a limit in the number of items you want to receive.
+```json
+{
+  "filters": {...},
+  "limit": 30
+}
+```
 
 ### **sort_by**
 
 You can sort your result by date, and price. Here's how we do it:
 
 ```json
+{
+  "filters": {...},
   "sort_by": "time"
+}
 ```
 
 ```json
+{
+  "filters": {...},
   "sort_by": "price"
+}
 ```
 
 ### **sort_order**
@@ -184,14 +238,20 @@ When you sort your results, you can specify in you want the more recent (or the 
 From the highest value to the lowest:
 
 ```json
+{
+  "filters": {...},
   "sort_order": "desc"
+}
 ```
 
 
 From the lowest value to the highest:
 
 ```json
+{
+  "filters": {...},
   "sort_order": "asc"
+}
 ```
 
 ### **owner_type**
@@ -201,18 +261,81 @@ The `owner_type` key lets you filter the ads depending on the type of user who p
 To get ads posted by pros, simply add:
 
 ```json
-"owner_type": "pro"
+{
+  "filters": {...},
+  "owner_type": "pro"
+}
 ```
 
 To get ads posted by private persons, simply add:
 
 ```json
-"owner_type": "private"
+{
+  "filters": {...},
+  "owner_type": "private"
+}
 ```
+
+*Note: by default, if you don't specify that field, you'll search for results that mixes both private persons and professionals*
 
 ## Samples
 
-TO DO
+Here are couple of examples of search params that you might want to put in a request to the API, using a combination of various parameters:
+
+A simple one:
+
+```json
+{
+  "filters": {
+    "keywords": {
+      "text": "job leboncoin"
+    }
+  },
+  "sort_by": "date",
+  "sort_order": "asc",
+  "limit": 35
+}
+```
+
+A more complex one:
+
+```json
+{
+  "filters": {
+    "category": {
+      "id": "53"
+    },
+    "enums": {
+      "urgent": ["1"]
+    },
+    "keywords": {
+      "type": "subject",
+      "text": "nike"
+    },
+    "location": {
+      "area": {
+        "lat": 48.8732495,
+        "lng": 2.356591,
+        "radius": 30000
+      }
+    },
+    "ranges": {
+      "price": {
+        "max": 50
+      }
+    }
+  },
+  "sort_by": "price",
+  "sort_order": "asc",
+  "limit": 35
+}
+```
+
+## Dictionaries
+
+As mentioned above, here are mapping tables for categories and French regions (department codes are the one you already know):
+
+TO DO x2
 
 ## Final Notes
 
