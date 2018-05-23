@@ -7,7 +7,7 @@ Each team will receive an api-key to be able to request the API. If you don't ha
 
 There is a limit rate to the api: 1000 requests / hours. If you need more, please reach out to us so that we can satisfy your need :)
 
-We've open an api endpoint to let you search our listing of ads. It's a simple POST request that accept parameters in the body an returns an array of results.
+We've opened an API endpoint to let you search our listing of ads. It's a simple POST request that accept parameters in the body and returns an array of results.
 
 * **Base URL**: `http://35.233.99.28`
 
@@ -37,7 +37,8 @@ Here are the highest level params for the body of your request:
   "filters": Object,
   "limit": Int,
   "sort_by": String,
-  "sort_order": String
+  "sort_order": String,
+  "owner_type": String
 }
 ```
 
