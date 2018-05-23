@@ -176,7 +176,7 @@ The `filters` key is the main place where you refine your request. It's an objec
     }
     ```
 
-    *Note: you cann find a dictionnary of the regions below*
+    *Note: you can find a dictionnary of the regions below*
 
     *Note 2: you cannot cross several regions or department at the same time:*
       ```
@@ -325,6 +325,7 @@ A more complex one:
       }
     }
   },
+  "owner_type": "private",
   "sort_by": "price",
   "sort_order": "asc",
   "limit": 35
@@ -333,7 +334,7 @@ A more complex one:
 
 ## Dictionaries
 
-As mentioned above, here are mapping tables for categories and French regions (department codes are the one you already know):
+As mentioned above, here are tables to let you map categories and French regions to their matching ids (department ids are the one you already know, ie: Paris === '75'):
 
 TO DO x2
 
