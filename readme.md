@@ -466,8 +466,6 @@ You'll receive an object with some meta data about your result, and an array of 
         "is_shape": true
       },
       "owner": {
-        "store_id": "14030496",
-        "user_id": "979977ab-c3d4-4832-ad55-5f58bbe005b4",
         "type": "private",
         "name": "djik's",
         "no_salesmen": true
