@@ -30,7 +30,7 @@ There is a limit rate to the api: 1000 requests / hour. If you need more, please
 
 We've opened a unique API endpoint to let you search our listing of ads. It's a simple POST request that accepts parameters in the body and returns an array of results.
 
-* **Base URL**: `http://35.233.99.28`
+* **API Endpoint URL**: `https://vivatech.leboncoin.io/search`
 
 * **Method available :**
   `POST`
@@ -324,7 +324,7 @@ A simple one to get the 35 most recent ads that contains the text "software engi
 The full cURL:
 ```shell
 curl -X POST \
-  http://35.233.99.28 \
+  https://vivatech.leboncoin.io/search \
   -H 'Content-Type: application/json' \
   -H 'api_key: user1' \
   -d '{"filters":{"keywords":{"text":"software engineer @leboncoin"}},"sort_by":"date","sort_order":"desc","limit":35}'`
@@ -370,7 +370,7 @@ A more complex one to get a "nike air force" ad with the parameters you'll guess
 The full cURL:
 ```shell
 curl -X POST \
-  http://35.233.99.28 \
+  https://vivatech.leboncoin.io/search \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: aca30f84-302e-d56c-e2eb-d88eb284b40a' \
